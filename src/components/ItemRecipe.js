@@ -2,16 +2,18 @@ import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native'
 import colors from '../../theme/colors';
 import { Ionicons } from '@expo/vector-icons';
-
+import { useNavigation } from '@react-navigation/native';
 
 const ItemRecipe = ({item}) => {
+    const navigation = useNavigation();
     console.log('props:', item);
     return (
         <TouchableOpacity 
-            onPress={() => {}}
+            onPress={() => navigation.navigate('RecipeDetailScreen', {
+                recipeId: item.id,
+            })}
             style={styles.itemContainer}
         >
-       
             <Image 
             source = {{uri:item.image}}
             resizeMode = "cover"
@@ -25,6 +27,8 @@ const ItemRecipe = ({item}) => {
                     <Ionicons name="star-sharp" size={20} color={"orange"} />
                     <Text style = {styles.rating}>{item.rating}</Text>
                 </View>
+                <Text style = {styles.cuisine}>{item.cuisine}</Text>
+
             
             </View>
             
@@ -56,13 +60,7 @@ const styles = StyleSheet.create({
     },
     text:{
         fontWeight: "bold",
-        // justifyContent: "center",
-        // alignItems: "center",
         fontSize: 16,
-        // marginLeft: 16,
-        // color: colors.primary,
-        // flex:1,
-        // lineHeight: 24,
     },
     rating:{
         fontSize:16,
@@ -81,6 +79,9 @@ const styles = StyleSheet.create({
         flex:1,
         justifyContent: "flex-start",
         // backgroundColor:
+    },
+    cuisine:{
+        marginTop:8,
     }
 });
 
